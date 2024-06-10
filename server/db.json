@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Laptop Dell Inspiron 15",
+    "price": 699.99,
+    "available": true,
+    "description": "Dell Inspiron 15 5000 Series, Intel Core i7, 8GB RAM, 512GB SSD, 15.6-inch Full HD display."
+  },
+  {
+    "name": "Samsung Galaxy S21",
+    "price": 799.99,
+    "available": true,
+    "description": "Samsung Galaxy S21, 128GB, 8GB RAM, 6.2-inch AMOLED display."
+  },
+  {
+    "name": "Apple MacBook Pro",
+    "price": 1299.99,
+    "available": false,
+    "description": "Apple MacBook Pro 13-inch, M1 chip, 8GB RAM, 256GB SSD."
+  },
+  {
+    "name": "Sony WH-1000XM4 Headphones",
+    "price": 349.99,
+    "available": true,
+    "description": "Sony WH-1000XM4 Wireless Noise Cancelling Headphones, 30-hour battery life."
+  },
+  {
+    "name": "LG 55-inch 4K UHD TV",
+    "price": 599.99,
+    "available": true,
+    "description": "LG 55-inch 4K UHD Smart TV with HDR, WebOS."
+  },
+  {
+    "name": "Nintendo Switch",
+    "price": 299.99,
+    "available": true,
+    "description": "Nintendo Switch with Neon Blue and Neon Red Joy-Con."
+  },
+  {
+    "name": "Amazon Echo Dot",
+    "price": 49.99,
+    "available": true,
+    "description": "Amazon Echo Dot (4th Gen) Smart Speaker with Alexa."
+  },
+  {
+    "name": "Canon EOS Rebel T7",
+    "price": 449.99,
+    "available": false,
+    "description": "Canon EOS Rebel T7 DSLR Camera with 18-55mm Lens."
+  },
+  {
+    "name": "Fitbit Charge 4",
+    "price": 149.99,
+    "available": true,
+    "description": "Fitbit Charge 4 Fitness and Activity Tracker with built-in GPS."
+  },
+  {
+    "name": "Instant Pot Duo 7-in-1",
+    "price": 89.99,
+    "available": true,
+    "description": "Instant Pot Duo 7-in-1 Electric Pressure Cooker, 6 Quart."
+  }
+]
