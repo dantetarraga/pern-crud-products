@@ -1,5 +1,5 @@
 import { CiEdit, CiTrash } from "react-icons/ci";
-import { deleteProduct } from "../../services/products";
+import { Form, useFetcher } from "react-router-dom";
 import { Product } from "../../types/product";
 
 interface Props {
@@ -7,10 +7,17 @@ interface Props {
 }
 
 const ProductDetails = ({ product }: Props) => {
-  const handleDeleteProduct = async () => {
-    const result = await deleteProduct(product.id);
+  const fetcher = useFetcher();
+  const isDeleting = fetcher.state !== "idle";
 
-    console.log(result);
+  const handleDeleteProduct = async () => {
+    const data = new FormData();
+    data.set("id", JSON.stringify(product.id));
+
+    fetcher.submit(data, {
+      method: "DELETE",
+      action: `/`,
+    });
   };
 
   return (
@@ -30,15 +37,21 @@ const ProductDetails = ({ product }: Props) => {
       </td>
       <td className="py-5 text-gray-400">$ {product.price}</td>
       <td className="py-5 [&>*]:inline-block space-x-4">
-        <div
+        <button
           className="cursor-pointer hover:bg-gray-200 p-2 rounded-full"
           onClick={handleDeleteProduct}
         >
           <CiTrash size={25} className="text-red-600" />
-        </div>
-        <div className="cursor-pointer hover:bg-gray-200 p-2 rounded-full">
-          <CiEdit size={25} className="text-blue-600" />
-        </div>
+          {isDeleting ? "Deleting..." : "Delete"}
+        </button>
+        <Form method="PUT" action={"/"}>
+          <button
+            className="cursor-pointer hover:bg-gray-200 p-2 rounded-full"
+            type="submit"
+          >
+            <CiEdit size={25} className="text-blue-600" />
+          </button>
+        </Form>
       </td>
     </tr>
   );

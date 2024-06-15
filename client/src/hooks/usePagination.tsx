@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Product } from "../../types/product";
+import { Product } from "../types/product";
 
 export const usePagination = (initialData: Product[], itemsPerPage: number) => {
   const [currentPage, setCurrentPage] = useState(1);

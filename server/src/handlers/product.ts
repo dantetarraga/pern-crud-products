@@ -132,6 +132,7 @@ export const updateProductAvailability = async (
 };
 
 export const deleteProduct = async (req: Request, res: Response) => {
+  sleep(2000);
   const { id } = req.params;
 
   const product = await Product.findByPk(id);

@@ -1,11 +1,23 @@
 import React, { Suspense } from "react";
 import { IoMdAdd } from "react-icons/io";
-import { Await, defer, Link, useLoaderData } from "react-router-dom";
-import { usePagination } from "../components/hooks/usePagination.tsx";
+import {
+  ActionFunctionArgs,
+  Await,
+  defer,
+  Link,
+  useFetcher,
+  useLoaderData,
+} from "react-router-dom";
 import Pagination from "../components/pagination/Pagination.tsx";
 import ProductDetails from "../components/product/ProductDetails.tsx";
-import { getAllProducts } from "../services/products.ts";
+import { usePagination } from "../hooks/usePagination.tsx";
+import { deleteProduct, getAllProducts } from "../services/products.ts";
 import { Product } from "../types/product.ts";
+
+const ACTION_TYPES = {
+  DELETE: "DELETE",
+  PUT: "PUT",
+};
 
 type LoaderData = {
   products: Product[];
@@ -16,9 +28,33 @@ export const loader = async () => {
   return defer({ products });
 };
 
+export const actionsProduct = async (args: ActionFunctionArgs) => {
+  const { request } = args;
+
+  const formData = await request.formData();
+  const productId = formData.get("id") as string;
+
+  if (!productId) return;
+
+  if (request.method === "DELETE") {
+    const id = parseInt(productId);
+    const result = await deleteProduct(id);
+    return result;
+  }
+
+  if (request.method === "PUT") {
+    console.log("Editing product...");
+  }
+
+  return null;
+};
+
 const Products: React.FC = () => {
-  const { products } = useLoaderData() as LoaderData;
   const itemsPerPage = 5;
+  const { products } = useLoaderData() as LoaderData;
+  const fetcher = useFetcher();
+  const isDeleting = fetcher.state !== "idle";
+
   const { currentData, nextPage, prevPage, maxPage, goToPage, currentPage } =
     usePagination(products, itemsPerPage);
 
@@ -40,8 +76,8 @@ const Products: React.FC = () => {
           <Await resolve={products}>
             {() => (
               <>
-                <div className="rounded-2xl bg-gray-100 border border-gray-50 h-[500px]">
-                  <table className="table-auto w-full max-h-full h-auto">
+                <div className="rounded-2xl bg-gray-100 border border-gray-50 h-auto">
+                  <table className="table-auto w-full max-h-[500px] h-auto">
                     <thead className="">
                       <tr className="uppercase">
                         <th className="px-6 py-5 w-[180px]">Name</th>

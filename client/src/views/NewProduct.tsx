@@ -1,17 +1,27 @@
 import type { ActionFunction } from "react-router-dom";
-import { Form, Link, redirect } from "react-router-dom";
+import { Form, Link, redirect, useNavigation } from "react-router-dom";
+import SpinnerCircle from "../components/loading/SpinnerCircle";
 import { createProduct } from "../services/products";
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
   let data = Object.fromEntries(formData);
 
-  await createProduct(data);
+  const result = await createProduct(data);
+
+  if (result.nested) {
+    console.error(result.error);
+    return null;
+  }
 
   return redirect("/");
 };
 
 const NewProduct = () => {
+  const navigation = useNavigation();
+
+  console.log(navigation.state);
+
   return (
     <section className="">
       <div className="flex justify-between items-center">
@@ -79,11 +89,16 @@ const NewProduct = () => {
           />
         </div>
 
-        <input
+        <button
           type="submit"
           className="mt-5 w-full bg-blue-600 p-2 text-white font-bold text-lg cursor-pointer rounded"
-          value="Registrar Producto"
-        />
+        >
+          {navigation.state !== "idle" ? (
+            <SpinnerCircle size="large" color="blue" thickness={4} />
+          ) : (
+            "Register Product"
+          )}
+        </button>
       </Form>
     </section>
   );
