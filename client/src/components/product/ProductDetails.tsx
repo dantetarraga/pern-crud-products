@@ -7,7 +7,7 @@ interface Props {
 
 const ProductDetails = ({ product }: Props) => {
   return (
-    <tr className="text-center border-none">
+    <tr className="text-center border-none text-sm">
       <td className="py-5">{product.name}</td>
       <td className="py-5">{product.description}</td>
       <td className="py-5">

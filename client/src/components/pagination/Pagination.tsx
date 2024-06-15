@@ -1,17 +1,18 @@
-import { Product } from "../../types/product";
-import { usePagination } from "../hooks/usePagination";
-
 interface Props {
-  data: Product[];
+  nextPage: () => void;
+  prevPage: () => void;
+  goToPage: (page: number) => void;
+  currentPage: number;
+  maxPage: number;
 }
 
-const Pagination = ({ data }: Props) => {
-  const itemsPerPage = 5;
-  const { nextPage, prevPage, goToPage, currentPage, maxPage } = usePagination(
-    data,
-    itemsPerPage
-  );
-
+const Pagination = ({
+  nextPage,
+  prevPage,
+  goToPage,
+  currentPage,
+  maxPage,
+}: Props) => {
   const pages = Array.from({ length: maxPage }, (_, i) => i + 1);
 
   return (
