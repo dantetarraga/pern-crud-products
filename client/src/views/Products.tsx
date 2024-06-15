@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import { IoMdAdd } from "react-icons/io";
 import { Await, defer, Link, useLoaderData } from "react-router-dom";
+import { usePagination } from "../components/hooks/usePagination.tsx";
 import Pagination from "../components/pagination/Pagination.tsx";
 import ProductDetails from "../components/product/ProductDetails.tsx";
 import { getAllProducts } from "../services/products.ts";
@@ -13,12 +14,16 @@ type LoaderData = {
 
 export const loader = async () => {
   await sleep(1000);
-  const products: Promise<Product[]> = getAllProducts();
+  const products: Promise<Product[]> = await getAllProducts();
   return defer({ products });
 };
 
 const Products: React.FC = () => {
   const { products } = useLoaderData() as LoaderData;
+
+  const itemsPerPage = 5;
+  const { currentData } = usePagination(products, itemsPerPage);
+  console.log(currentData);
 
   return (
     <section className="dasd">

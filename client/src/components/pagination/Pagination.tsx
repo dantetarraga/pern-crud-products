@@ -7,8 +7,10 @@ interface Props {
 
 const Pagination = ({ data }: Props) => {
   const itemsPerPage = 5;
-  const { nextPage, prevPage, goToPage, currentData, currentPage, maxPage } =
-    usePagination(data, itemsPerPage);
+  const { nextPage, prevPage, goToPage, currentPage, maxPage } = usePagination(
+    data,
+    itemsPerPage
+  );
 
   const pages = Array.from({ length: maxPage }, (_, i) => i + 1);
 
