@@ -20,24 +20,29 @@ export const createProduct = async (req: Request, res: Response) => {
   }
 
   return res.status(201).json({
-    data: newProduct,
+    newProduct,
     message: "Product created successfully",
   });
 };
 
 export const getProducts = async (req: Request, res: Response) => {
-  const products = await Product.findAll({
+  let result = await Product.findAll({
     attributes: { exclude: ["createdAt", "updatedAt"] },
   });
 
-  if (!products) {
+  if (!result) {
     return res.status(404).json({
       message: "Products not found",
     });
   }
 
+  const products = result.map((product) => ({
+    ...product.toJSON(),
+    price: parseFloat(String(product.price)),
+  }));
+
   return res.status(200).json({
-    data: products,
+    products,
   });
 };
 
@@ -53,7 +58,7 @@ export const getProductById = async (req: Request, res: Response) => {
   }
 
   return res.status(200).json({
-    data: product,
+    product,
   });
 };
 
@@ -85,7 +90,7 @@ export const updateProduct = async (req: Request, res: Response) => {
   }
 
   return res.status(200).json({
-    data: updateProduct,
+    updateProduct,
     message: "Product updated successfully",
   });
 };
@@ -118,7 +123,7 @@ export const updateProductAvailability = async (
   }
 
   return res.status(200).json({
-    data: updateProduct,
+    updateProduct,
     message: "Product updated successfully",
   });
 };

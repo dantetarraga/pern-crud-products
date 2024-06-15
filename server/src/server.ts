@@ -1,5 +1,6 @@
 import cors from "cors";
 import express from "express";
+import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
 import db from "./config/db";
 import swaggerSpec from "./config/swagger";
@@ -16,9 +17,13 @@ export async function connectDB() {
 }
 
 connectDB();
+
 const server = express();
+
 server.use(express.json());
 server.use(cors());
+server.use(morgan("dev"));
+
 server.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 server.use("/api/products", router);

@@ -1,10 +1,21 @@
-import { Form, Link } from "react-router-dom";
+import type { ActionFunction } from "react-router-dom";
+import { Form, Link, redirect } from "react-router-dom";
+import { createProduct } from "../services/products";
 
-export const NewProduct = () => {
+export const action: ActionFunction = async ({ request }) => {
+  const formData = await request.formData();
+  let data = Object.fromEntries(formData);
+
+  await createProduct(data);
+
+  return redirect("/");
+};
+
+const NewProduct = () => {
   return (
     <section className="">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-slate-400 uppercase">
+        <h2 className="text-3xl font-bold text-slate-950 uppercase">
           Add new product
         </h2>
 
@@ -16,7 +27,7 @@ export const NewProduct = () => {
         </Link>
       </div>
 
-      <Form className="mt-10">
+      <Form className="mt-10" method="POST">
         <div className="mb-4">
           <label className="text-gray-800" htmlFor="name">
             Product name:
@@ -29,29 +40,17 @@ export const NewProduct = () => {
             name="name"
           />
         </div>
-        <div className="mb-4">
+
+        <div className="mb-4 flex-grow">
           <label className="text-gray-800" htmlFor="price">
             Price:
           </label>
           <input
             id="price"
-            type="number"
-            className="mt-2 block w-full p-3 bg-gray-50"
+            type="text"
+            className="mt-2 block w-full p-3 "
             placeholder="Precio Producto. ej. 200, 300"
             name="price"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="text-gray-800" htmlFor="available">
-            Available:
-          </label>
-          <input
-            id="available"
-            type="checkbox"
-            className="mt-2 block w-full p-3 bg-gray-50"
-            placeholder="Precio Producto. ej. 200, 300"
-            name="available"
           />
         </div>
 
@@ -61,12 +60,25 @@ export const NewProduct = () => {
           </label>
           <input
             id="description"
-            type="number"
+            type="text"
             className="mt-2 block w-full p-3 bg-gray-50"
-            placeholder="Precio Producto. ej. 200, 300"
+            placeholder="Descripcion del producto"
             name="description"
           />
         </div>
+
+        <div className="mb-4  flex-col">
+          <label className="text-gray-800" htmlFor="available">
+            Available:
+          </label>
+          <input
+            id="available"
+            type="checkbox"
+            className="mt-2 p-3 w-5 h-5 bg-gray-50 block"
+            name="available"
+          />
+        </div>
+
         <input
           type="submit"
           className="mt-5 w-full bg-blue-600 p-2 text-white font-bold text-lg cursor-pointer rounded"
@@ -76,3 +88,5 @@ export const NewProduct = () => {
     </section>
   );
 };
+
+export default NewProduct;

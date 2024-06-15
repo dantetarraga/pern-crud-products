@@ -1,7 +1,11 @@
+import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { RootLayout } from "./layouts/RootLayout";
-import { NewProduct } from "./views/NewProduct";
-import { loaderProducts, Products } from "./views/Products";
+import { action as newProductAction } from "./views/NewProduct";
+import { loader as loaderProducts } from "./views/Products";
+
+const Products = lazy(() => import("./views/Products"));
+const NewProduct = lazy(() => import("./views/NewProduct"));
 
 export const router = createBrowserRouter([
   {
@@ -13,7 +17,11 @@ export const router = createBrowserRouter([
         element: <Products />,
         loader: loaderProducts,
       },
-      { path: "products/new", element: <NewProduct /> },
+      {
+        path: "products/new",
+        element: <NewProduct />,
+        action: newProductAction,
+      },
     ],
   },
 ]);
