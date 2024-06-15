@@ -94,7 +94,7 @@ const NewProduct = () => {
           className="mt-5 w-full bg-blue-600 p-2 text-white font-bold text-lg cursor-pointer rounded"
         >
           {navigation.state !== "idle" ? (
-            <SpinnerCircle size="large" color="blue" thickness={4} />
+            <SpinnerCircle size={5} />
           ) : (
             "Register Product"
           )}

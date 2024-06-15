@@ -1,31 +1,13 @@
-import React from "react";
-
-interface SpinnerCircleProps {
-  size?: "small" | "medium" | "large";
-  color?: string;
-  thickness?: number;
-  speed?: number;
+interface Props {
+  size?: number;
 }
 
-const SpinnerCircle: React.FC<SpinnerCircleProps> = ({
-  size = "medium",
-  color = "currentColor",
-  thickness = 3,
-  speed = 1,
-}) => {
-  const sizeClasses = {
-    small: "w-4 h-4",
-    medium: "w-8 h-8",
-    large: "w-12 h-12",
-  };
-
-  const spinSpeed = `animate-spin-${speed}`;
-
+const SpinnerCircle = ({ size }: Props) => {
   return (
     <div
-      className={`rounded-full border-t-[${thickness}px] border-${color} ${sizeClasses[size]} ${spinSpeed}`}
-      style={{ borderColor: `${color} transparent transparent transparent` }}
-    />
+      className={`inline-block h-${size} w-${size} animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white`}
+      role="status"
+    ></div>
   );
 };
 

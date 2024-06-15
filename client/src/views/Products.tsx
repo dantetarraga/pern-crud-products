@@ -5,7 +5,6 @@ import {
   Await,
   defer,
   Link,
-  useFetcher,
   useLoaderData,
 } from "react-router-dom";
 import Pagination from "../components/pagination/Pagination.tsx";
@@ -52,8 +51,6 @@ export const actionsProduct = async (args: ActionFunctionArgs) => {
 const Products: React.FC = () => {
   const itemsPerPage = 5;
   const { products } = useLoaderData() as LoaderData;
-  const fetcher = useFetcher();
-  const isDeleting = fetcher.state !== "idle";
 
   const { currentData, nextPage, prevPage, maxPage, goToPage, currentPage } =
     usePagination(products, itemsPerPage);
