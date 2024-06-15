@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import { IoMdAdd } from "react-icons/io";
 import { Await, defer, Link, useLoaderData } from "react-router-dom";
+import Pagination from "../components/pagination/Pagination.tsx";
 import ProductDetails from "../components/product/ProductDetails.tsx";
 import { getAllProducts } from "../services/products.ts";
 import { Product } from "../types/product.ts";
@@ -36,24 +37,27 @@ const Products: React.FC = () => {
         >
           <Await resolve={products}>
             {(resolvedProducts) => (
-              <div className="rounded-2xl bg-gray-50 border border-gray-50">
-                <table className="table-auto w-full">
-                  <thead className="rounded-2xl">
-                    <tr className="uppercase">
-                      <th className="px-6 py-5">Name</th>
-                      <th className="px-6 py-5">Description</th>
-                      <th className="px-6 py-5">Price</th>
-                      <th className="px-6 py-5">Available</th>
-                      <th className="px-6 py-5">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white">
-                    {resolvedProducts.map((product: Product) => (
-                      <ProductDetails key={product.id} product={product} />
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+              <>
+                <div className="rounded-2xl bg-gray-50 border border-gray-50">
+                  <table className="table-auto w-full">
+                    <thead className="rounded-2xl">
+                      <tr className="uppercase">
+                        <th className="px-6 py-5">Name</th>
+                        <th className="px-6 py-5">Description</th>
+                        <th className="px-6 py-5">Price</th>
+                        <th className="px-6 py-5">Available</th>
+                        <th className="px-6 py-5">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white">
+                      {resolvedProducts.map((product: Product) => (
+                        <ProductDetails key={product.id} product={product} />
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <Pagination data={resolvedProducts} />
+              </>
             )}
           </Await>
         </Suspense>
