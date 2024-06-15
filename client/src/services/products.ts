@@ -39,3 +39,12 @@ export const createProduct = async (product: ProductData) => {
 
   return await ajax(config);
 };
+
+export const deleteProduct = async (id: Product["id"]) => {
+  const config: AjaxConfig = {
+    method: "DELETE",
+    url: `${import.meta.env.VITE_API_URL}/${id}`,
+  };
+
+  return await ajax(config);
+};

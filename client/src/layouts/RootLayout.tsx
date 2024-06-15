@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
-import Spinner from "../components/loading/Spinner";
 
 export const RootLayout = () => {
   return (
@@ -13,7 +12,8 @@ export const RootLayout = () => {
       </header>
 
       <main className="mt-10 mx-auto max-w-6xl p-10 bg-white shadow">
-        <Suspense fallback={<Spinner />}>
+        {/* <Suspense fallback={<Spinner />}> */}
+        <Suspense fallback={<div>Loading...</div>}>
           <Outlet />
         </Suspense>
       </main>
