@@ -20,8 +20,6 @@ export const action: ActionFunction = async ({ request }) => {
 const NewProduct = () => {
   const navigation = useNavigation();
 
-  console.log(navigation.state);
-
   return (
     <section className="">
       <div className="flex justify-between items-center">
