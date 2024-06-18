@@ -17,11 +17,6 @@ import {
 } from "../services/products.ts";
 import { Product } from "../types/product.ts";
 
-const ACTION_TYPES = {
-  DELETE: "DELETE",
-  PUT: "PUT",
-};
-
 type LoaderData = {
   products: Product[];
 };

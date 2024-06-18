@@ -72,7 +72,6 @@ const ProductDetails = ({ product }: Props) => {
             <ProductEditeModal
               onClose={handleCloseEditModal}
               product={product}
-              fetcher={fetcher}
             />
           )}
         </div>

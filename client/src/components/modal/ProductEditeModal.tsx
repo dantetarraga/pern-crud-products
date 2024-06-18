@@ -1,14 +1,13 @@
-import { Form, useFetcher, useNavigation } from "react-router-dom";
+import { Form, useNavigation } from "react-router-dom";
 import { Product } from "../../types/product";
 import SpinnerCircle from "../loading/SpinnerCircle";
 
 interface Props {
   onClose: () => void;
   product: Product;
-  fetcher: ReturnType<typeof useFetcher>;
 }
 
-const ProductEditeModal = ({ onClose, product, fetcher }: Props) => {
+const ProductEditeModal = ({ onClose, product }: Props) => {
   const navigation = useNavigation();
 
   return (
