@@ -69,7 +69,5 @@ export const updateProduct = async (product: ProductData) => {
     data: updatedProduct,
   };
 
-  const res = await ajax(config);
-  console.log(config);
-  return res;
+  return await ajax(config);
 };
