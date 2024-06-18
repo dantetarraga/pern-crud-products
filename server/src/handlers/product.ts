@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import Product from "../models/Product";
-import { sleep } from "../utils/sleep";
 
 export const createProduct = async (req: Request, res: Response) => {
   const { name, price, description, available } = req.body;
@@ -27,8 +26,6 @@ export const createProduct = async (req: Request, res: Response) => {
 };
 
 export const getProducts = async (req: Request, res: Response) => {
-  await sleep(2000);
-
   let result = await Product.findAll({
     attributes: { exclude: ["createdAt", "updatedAt"] },
   });
@@ -132,7 +129,6 @@ export const updateProductAvailability = async (
 };
 
 export const deleteProduct = async (req: Request, res: Response) => {
-  sleep(2000);
   const { id } = req.params;
 
   const product = await Product.findByPk(id);
