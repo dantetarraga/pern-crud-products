@@ -10,7 +10,11 @@ import {
 import Pagination from "../components/pagination/Pagination.tsx";
 import ProductDetails from "../components/product/ProductDetails.tsx";
 import { usePagination } from "../hooks/usePagination.tsx";
-import { deleteProduct, getAllProducts } from "../services/products.ts";
+import {
+  deleteProduct,
+  getAllProducts,
+  updateProduct,
+} from "../services/products.ts";
 import { Product } from "../types/product.ts";
 
 const ACTION_TYPES = {
@@ -30,22 +34,27 @@ export const loader = async () => {
 export const actionsProduct = async (args: ActionFunctionArgs) => {
   const { request } = args;
 
-  const formData = await request.formData();
-  const productId = formData.get("id") as string;
+  switch (request.method) {
+    case "DELETE": {
+      const formData = await request.formData();
+      const productId = formData.get("id") as string;
 
-  if (!productId) return;
+      if (!productId) return;
 
-  if (request.method === "DELETE") {
-    const id = parseInt(productId);
-    const result = await deleteProduct(id);
-    return result;
+      const id = parseInt(productId);
+      const result = await deleteProduct(id);
+      return result;
+    }
+    case "PUT": {
+      const formData = await request.formData();
+      let data = Object.fromEntries(formData);
+
+      const result = await updateProduct(data);
+      return result;
+    }
+    default:
+      return null;
   }
-
-  if (request.method === "PUT") {
-    console.log("Editing product...");
-  }
-
-  return null;
 };
 
 const Products: React.FC = () => {

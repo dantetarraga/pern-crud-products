@@ -20,8 +20,13 @@ const ProductEditeModal = ({ onClose, product, fetcher }: Props) => {
         className="bg-white w-[580px] p-5 rounded-md"
         onClick={(event) => event.stopPropagation()}
       >
-        <h2 className="text-2xl font-bold">Editing product</h2>
-        <Form className="mt-10" method="POST">
+        <h2 className="text-2xl font-bold text-start">Editing product</h2>
+        <Form className="mt-10 text-start" method="PUT" action="/">
+          <input
+            type="hidden"
+            name="id"
+            value={product.id ? product.id.toString() : undefined}
+          />
           <div className="mb-4">
             <label className="text-gray-800" htmlFor="name">
               Product name:
